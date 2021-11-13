@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <title>6</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/estilos/estilos.css">
+    <link rel="icon" href="/img/FilmCultIcono.ico">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-storage.js"></script>
+    <script>
+      const firebaseConfig = {
+      apiKey: "AIzaSyCaoWtYkEmULAJ4EonJEmswrC7oCHgkx7g",
+      authDomain: "filmcult-55b4c.firebaseapp.com",
+      databaseURL: "https://filmcult-55b4c-default-rtdb.firebaseio.com/",
+      projectId: "filmcult-55b4c",
+      storageBucket: "filmcult-55b4c.appspot.com",
+      messagingSenderId: "677583990855",
+      appId: "1:677583990855:web:4d29e9cea8702f44c7c162",
+      measurementId: "G-F59VL2Z673"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+  </head>
+  <body class="bodi" data-spy="scroll" data-target=".navbar" data-offset="50">
+    <nav class="navbar navColor navbar-expand-lg navbar-dark fixed-top" id="nav">
+      <img class="logo">
+      <button class="btn-login ml-3" role="button" id="btn-login">Login/Registrarse<i class="fa fa-user"></i></button>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/index.html">Home</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#reviews" id="cosoEste">Reviews<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/cartelera.html" id="cartelera">Cartelera</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#footer">Contactanos!</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid pt-5 mt-5">
+      <div class="mt-5 pt-5 fondo">
+        <div class="media pt-5 row" id="head">
+          <img width="200em" heigth="200em" class="align-self-start mr-3 col-md-2 col-11 ml-3" id="img">
+          <div class="media-body col-md-10 col-11 ml-3">
+            <h1 class="text-center" style="margin-right:200" id="titulo"></h1>
+            <h3 class="text-white text-center">Descripcion</h3>
+            <p class="text-white text-center" id="descripcion"></p>
+          </div>
+        </div>
+        <div id="body" class="mt-3">
+          <h1 class="text-center">Comentarios</h1>
+          <h3 class="d-none text-center"id="msg">No hay Comentarios</h3>
+          <div id="comentarios"></div>
+          <form action="" method="post" class="d-flex" id="form">
+            <input type="textarea" rows="50" class="formulario text-white mb-1 ml-5" cols="50" placeholder="Danos tu opinion!" id="textArea" name="Comentario">
+            <input type="submit" placeholder="Enviar" class="btn-enviar mb-1 ml-5 justify-content-center" id="enviarComentario"> <br>
+          </form>
+          <div class="error errorComentario d-none ml-5">
+            <p>Recuerde de que los comentarios tiene que de ser de 4 digitos a 255<i class="fas fa-times-circle"></i></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="login">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+          <div class="modal-header modalColor">
+            <h4 class="modal-title">Bienvenido a FilmCult</h4>
+            <img class="logo2">
+          </div>
+          <form action="/" method="GET" class="" id="form">
+            <div class="modal-body">
+              <h3 class="tittle titulo text-center mb-4">Ingrese sus datos</h3>
+              <div>
+                <input type="email" class="formulario mb-1 ml-5" placeholder="Ingrese su email" name="mail" id="email">
+              </div>
+              <div class="errorMail error d-none ml-5">
+                <p>Ingrese un Mail valido<i class="fas fa-times-circle"></i></p>
+              </div>
+              <div>
+                <input type="password" class="formulario mb-1 ml-5" placeholder="Ingrese su Contraseña" name="password" id="password">
+              </div>
+              <div class="errorContra error d-none ml-5">
+                <p>Ingrese una contraseña valida<i class="fas fa-times-circle"></i></p>
+              </div>
+              <div class="mensaje-exito d-none ml-5">
+                <p>Logueo completado<i class="fas fa-check-circle"></i></p>
+              </div>
+              <div class="error mensaje-fallo d-none ml-5">
+                <p>error al Logearse. verifique su nombre de usuario y contraseña porfavor <i class="fas fa-times-circle"></i></p>
+              </div>
+            </div>
+            <div class="modal-footer footerColor2">
+              <button type="button" class="btn-cerrar-sesion" id="registro">Registrarse</button>
+              <input type="submit" class="btn-enviar" id="enviar">
+              <button type="button" class="btn-cerrar" data-dismiss="modal">Cerrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+  <div class="modal fade footerColor" id="registracion">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content ">
+        <div class="modal-header modalColor">
+          <h4 class="modal-title">Bienvenido a FilmCult</h4>
+          <img class="logo2" id="logo2">
+        </div>
+        <form action="/" method="GET" class="" id="formReg">
+          <div class="modal-body">
+            <h3 class="tittle titulo text-center mb-4">Cree su propia cuenta</h3>
+            <div>
+              <input type="email" class="formulario mb-1 ml-5" placeholder="Ingrese su email" name="mail2" id="email2">
+            </div>
+            <div class="errorMail2 error d-none ml-5">
+              <p>Ingrese un mail valido<i class="fas fa-times-circle"></i></p>
+            </div>
+            <div>
+              <input type="text" class="formulario mb-1 ml-5" placeholder="Ingrese su nombre de usuario" name="username" id="username">
+            </div>
+            <div class="errorUsuario error d-none ml-5">
+              <p>Ingrese un nombre valido<i class="fas fa-times-circle"></i></p>
+            </div>
+            <div>
+              <input type="password" class="formulario mb-1 ml-5" placeholder="Ingrese su Contraseña" name="password2" id="password2">
+            </div>
+            <div class="errorContra2 error d-none ml-5">
+              <p>Ingrese una contraseña valida<i class="fas fa-times-circle"></i></p>
+            </div>
+            <div class="mensaje-exito2 exito d-none ml-5">
+              <p>Registro completado<i class="fas fa-check-circle"></i></p>
+            </div>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input file formulario mb-1 ml-5" id="customFile" name="File">
+              <label class="custom-file-label" for="customFile">elija su imagen</label>
+            </div>
+            <div class="error errorFile d-none ml-5">
+              <p>error al registrar su foto. verifique sus archivo porfavor <i class="fas fa-times-circle"></i></p>
+            </div>
+            <div class="error mensaje-fallo2 d-none ml-5">
+              <p>error al registrarse. verifique sus datos porfavor <i class="fas fa-times-circle"></i></p>
+            </div>
+            <div class="divImgResultado">
+              <h3 class="text-dark text-center">Previsualizacion:</h3>
+            </div>
+          </div>
+          <div class="modal-footer footerColor2">
+            <input type="submit" class="btn-enviar" id="enviarReg">
+            <button type="button" class="btn-cerrar" data-dismiss="modal">Cerrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+<footer class="page-footer pt-4 footerColor mt-5" id="footer">
+    <div class="container-fluid justify text-md-left">
+      <div class="row d-flex justify-content-center">
+        <h5 class="text-uppercase text-center">FilmCult</h5>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <p class="text-center">Derechos reservados para FilmCult 2021 <i class="fas fa-copyright"></i></p>
+      </div>
+      <div class="row iconos justify-content-center">
+        <a href="#!"><i class="fab fa-facebook col-3"></i></a>
+        <a href="#!"><i class="fab fa-instagram col-3"></i></a>
+        <a href="#!"><i class="fab fa-twitter col-3"></i></i></a>
+        <a href="#!"><i class="fab fa-youtube col-3"></i></a>
+      </div>
+    </div>
+    <div class="footer-copyright text-center py-3 footerColor2">
+      <p><a href="#!">Terminos y condiciones</a> FilmCult 2021 <i class="fas fa-copyright"></i></p>
+    </div>
+  </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/e0a50d44b2.js"></script>
+    <script src="/scripts/review.js"></script>
+    <script src="/scripts/login.js"></script>
+  </body>
+</html>

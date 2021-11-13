@@ -1,0 +1,4 @@
+cosas que tienen que hacer:
+-centrar la tabla de la cartelera
+-hagan responsive las imagenes
+-cambien los comentarios para que queden mas bonitos
